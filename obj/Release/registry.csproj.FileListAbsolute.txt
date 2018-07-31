@@ -1,0 +1,8 @@
+C:\Users\Алёша\Desktop\Реестр\registry\bin\Release\registry.exe.config
+C:\Users\Алёша\Desktop\Реестр\registry\bin\Release\registry.exe
+C:\Users\Алёша\Desktop\Реестр\registry\bin\Release\registry.pdb
+C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.csprojResolveAssemblyReference.cache
+C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.csproj.ResolveComReference.cache
+C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.csproj.CoreCompileInputs.cache
+C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.exe
+C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.pdb
