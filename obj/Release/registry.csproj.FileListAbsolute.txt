@@ -6,3 +6,11 @@ C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.csproj.Re
 C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.csproj.CoreCompileInputs.cache
 C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.exe
 C:\Users\Алёша\Desktop\Реестр\registry\obj\Release\registry.pdb
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\registry.exe.config
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\registry.exe
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\registry.pdb
+C:\Users\Алёша\Desktop\git reestr\registry\obj\Release\registry.csprojResolveAssemblyReference.cache
+C:\Users\Алёша\Desktop\git reestr\registry\obj\Release\registry.csproj.ResolveComReference.cache
+C:\Users\Алёша\Desktop\git reestr\registry\obj\Release\registry.csproj.CoreCompileInputs.cache
+C:\Users\Алёша\Desktop\git reestr\registry\obj\Release\registry.exe
+C:\Users\Алёша\Desktop\git reestr\registry\obj\Release\registry.pdb

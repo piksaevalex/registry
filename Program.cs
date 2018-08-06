@@ -180,18 +180,25 @@ namespace registry
                     ds.Tables.Add(dt);
                 }
                 string[,] table = new string[ds.Tables[0].Rows.Count, ds.Tables[0].Columns.Count];
+                int shifrdoc = 1; // индекс столбца шифрдокумента
+                int sooruz = 2; // индекс столбца сооружение
+                int template = 0;
+                Regex regExOboz = new Regex(@"^Шифр.*$"); // находим индекс столбца 
+                Regex regExNaim = new Regex(@"^Сооружение.*$"); // находим индекс столбца 
                 for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                 {
                     for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
                     {
                         table[j, i] = ds.Tables[0].Rows[j].ItemArray[i].ToString();
+                        if (regExOboz.Match(table[j, i]).Success) shifrdoc = i; // находим индекс столбца обозначение 
+                        if (regExNaim.Match(table[j, i]).Success) sooruz = i; // находим индекс столбца наименование
                     }                      
                 }
 
                 bool state = false;
                 Regex regExProject = new Regex("^Шифр..*$"); // находим шифр проекта по этой маске
-                Regex regExStage = new Regex("^.*ЭТАП$"); // находим этап по этой маске
-                
+                Regex regExStage = new Regex("^..*[Э,э][Т,т][А,а][П,п]$"); // находим этап по этой маске
+                Regex regExStage2 = new Regex("^[Э,э][Т,т][А,а][П,п]..*$"); // находим этап по этой маске
                 Row row = new Row();
                 row.STAGE = "";
                 row.NAIMPROJE = table[0, 0];
@@ -199,20 +206,48 @@ namespace registry
                 row.DATEOFLASTWRITE = _file.LastWriteTime.ToShortDateString();
                 for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                 {
-                    if (state) { row.SHFRDOC = table[j, 0]; row.NAIMOBJ = table[j, 1]; }
-                    for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                    
+                    switch (template)
                     {
-                        if (regExProject.Match(table[j, i]).Success) { row.SHFR = table[j, i]; row.SHFR = row.SHFR.Replace("Шифр ", ""); }
-                        if (regExStage.Match(table[j, i]).Success) row.STAGE = table[j, i].Remove(table[j, i].IndexOf(' '));
-                        if (state && i > 1 && table[j,i] != "")
-                        {
-                            row.MARKA = table[j, i];
-                            row.OBOSDOC = row.SHFRDOC + "-" + row.MARKA;
-                            Export(row, ref countrow, ref excelworksheet);
-                        }
+                        case 0:
+                            row.SHFRDOC = table[j, shifrdoc]; row.NAIMOBJ = table[j, sooruz];
+                            for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
+                            {
+                                if (regExProject.Match(table[j, i]).Success) { row.SHFR = table[j, i]; row.SHFR = row.SHFR.Replace("Шифр ", ""); }
+                                if (regExStage.Match(table[j, i]).Success) row.STAGE = table[j, i].Remove(table[j, i].IndexOf(' '));
+                                if (regExStage2.Match(table[j, i]).Success) row.STAGE = table[j, i].Remove(0, table[j, i].IndexOf(' '));
+                                if (i > 1 && table[j, i] != "")
+                                {
+                                    row.MARKA = table[j, i];
+                                    if (row.SHFRDOC != "" && row.SHFRDOC != "Шифр")
+                                    {
+                                        row.OBOSDOC = row.SHFRDOC + "-" + row.MARKA;
+                                        Export(row, ref countrow, ref excelworksheet);
+                                    }
+
+                                }
+                            }
+                            break;
+                        case 1:
+                            if (table[j, 0] != "") row.SHFRDOC = table[j, 0];
+                            if (table[j, 1] != "") row.NAIMOBJ = table[j, 1];
+                            if (table[j, 2] != "") row.STAGE = table[j, 2];
+                            //if (table[j, 3] != "")
+                            {
+                                //row.MARKA = table[j, 3];
+                                var Marks = table[j, 3].Split(',');
+                                foreach (var item in Marks)
+                                {
+                                    row.OBOSDOC = row.SHFRDOC + "-" + item.Replace(" ", "");
+                                    Export(row, ref countrow, ref excelworksheet);
+                                }
+                                
+                            }
+
+                            break;
                     }
-                    if (table[j, 0] == "Шифр") state = true;
-                    if (table[j, 0] == "") state = false;
+                    if (table[j, 0] == "Шифр" && table[j, 1] == "Сооружение (площадка, трасса, система)" && table[j, 3] == "Марка" && table[j, 4] == "Изменения") { template = 1; }
+
                 }
             }
             sw_total.Stop();
