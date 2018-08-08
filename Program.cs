@@ -485,10 +485,10 @@ namespace registry
             string obosnachdocleft = row.OBOSDOC;
             for (int i = 1; i < wdtbl.Rows.Count; i++)
             {
-                for (int j = 1; j < wdtbl.Columns.Count; j++)
-                {
-                    Console.WriteLine(i + ", " + j + " : " + wdtbl.Cell(i, j).Range.Text.Replace("\a", "").Replace("\r", ""));
-                }
+                //for (int j = 1; j < wdtbl.Columns.Count; j++)
+                //{
+                    //Console.WriteLine(i + ", " + j + " : " + wdtbl.Cell(i, j).Range.Text.Replace("\a", "").Replace("\r", ""));
+                //}
                 if (wdtbl.Cell(i, 1).Range.Text.Replace("\a", "").Replace("\r", "") != "")
                 {
                     row.NAIMIZOBR = wdtbl.Cell(i, 2).Range.Text.Replace("\a", "").Replace("\r", "");
