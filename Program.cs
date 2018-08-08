@@ -33,7 +33,7 @@ namespace registry
                         Type.Missing, Type.Missing);                                    // Converter(Используется для передачи индекса конвертера файла используемого для открытия файла), AddToMRU(При true имя файла добавляется в список открытых файлов)
                 excelsheets = excelappworkbook.Worksheets;                      // Устанавливаем ссылку Страниц на страницы новой книги
                 excelworksheet = (Excel.Worksheet)excelsheets.get_Item(1);
-
+                //Search_list(directory, "", ref excelworksheet, ref countrow);
                 DirSearchEx(directory, ref excelworksheet, ref countrow);
                 excelappworkbook.Save();
                 excelapp.Quit();
@@ -199,11 +199,14 @@ namespace registry
                 Regex regExProject = new Regex("^Шифр..*$"); // находим шифр проекта по этой маске
                 Regex regExStage = new Regex("^..*[Э,э][Т,т][А,а][П,п]$"); // находим этап по этой маске
                 Regex regExStage2 = new Regex("^[Э,э][Т,т][А,а][П,п]..*$"); // находим этап по этой маске
+                Regex regExStage_number = new Regex("^/d*$"); // находим цифру по этой маске
                 Row row = new Row();
-                row.STAGE = "";
+                row.STAGE = "1";
                 row.NAIMPROJE = table[0, 0];
                 row.Directory = _file.FullName;
                 row.DATEOFLASTWRITE = _file.LastWriteTime.ToShortDateString();
+                //string directory = AppDomain.CurrentDomain.BaseDirectory;
+                string directory = _file.DirectoryName;
                 for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                 {
                     
@@ -214,15 +217,41 @@ namespace registry
                             for (int i = 0; i < ds.Tables[0].Columns.Count; i++)
                             {
                                 if (regExProject.Match(table[j, i]).Success) { row.SHFR = table[j, i]; row.SHFR = row.SHFR.Replace("Шифр ", ""); }
-                                if (regExStage.Match(table[j, i]).Success) row.STAGE = table[j, i].Remove(table[j, i].IndexOf(' '));
-                                if (regExStage2.Match(table[j, i]).Success) row.STAGE = table[j, i].Remove(0, table[j, i].IndexOf(' '));
+                                if (regExStage.Match(table[j, i]).Success)
+                                {
+                                    foreach (var item in table[j, 1].Split(' ')) 
+                                    {
+                                        if (regExStage_number.Match(item).Success) row.STAGE = item;
+                                    }
+                                    //row.STAGE = table[j, i].Remove(table[j, i].IndexOf(' '));
+                                }
+                                if (regExStage2.Match(table[j, i]).Success)
+                                {
+                                    foreach (var item in table[j, 1].Split(' '))
+                                    {
+                                        if (regExStage_number.Match(item).Success) row.STAGE = item;
+                                    }
+                                    //row.STAGE = table[j, i].Remove(0, table[j, i].IndexOf(' '));
+                                }
                                 if (i > 1 && table[j, i] != "")
                                 {
                                     row.MARKA = table[j, i];
-                                    if (row.SHFRDOC != "" && row.SHFRDOC != "Шифр")
+                                    if (row.SHFRDOC != "" && row.SHFRDOC != "Шифр" && row.SHFRDOC != "Договор №")
                                     {
-                                        row.OBOSDOC = row.SHFRDOC + "-" + row.MARKA;
-                                        Export(row, ref countrow, ref excelworksheet);
+                                        if (row.MARKA != "")
+                                        {
+                                            row.OBOSDOC = row.SHFRDOC + "-" + row.MARKA;
+                                            bool done = true;
+                                            Search_list(directory, row.SHFRDOC + "*" + row.MARKA, ref excelworksheet, ref countrow, ref row, ref done);
+                                            if (done)
+                                            {
+                                                row.NAIMIZOBR = "Не удалось найти вспомогательный файл";
+                                                Export(row, ref countrow, ref excelworksheet);
+
+                                            }
+                                            //Export(row, ref countrow, ref excelworksheet);
+                                        }
+                                        
                                     }
 
                                 }
@@ -231,15 +260,31 @@ namespace registry
                         case 1:
                             if (table[j, 0] != "") row.SHFRDOC = table[j, 0];
                             if (table[j, 1] != "") row.NAIMOBJ = table[j, 1];
-                            if (table[j, 2] != "") row.STAGE = table[j, 2];
-                            //if (table[j, 3] != "")
+                            if (table[j, 2] != "")
+                            {
+                                //row.STAGE = table[j, 2];
+                                foreach (var item in table[j, 2].Split(' '))
+                                {
+                                    if (regExStage_number.Match(item).Success) row.STAGE = item;
+                                }
+                            }
+                            if (row.SHFRDOC != "Шифр" && table[j,3] != "")
                             {
                                 //row.MARKA = table[j, 3];
                                 var Marks = table[j, 3].Split(',');
                                 foreach (var item in Marks)
                                 {
                                     row.OBOSDOC = row.SHFRDOC + "-" + item.Replace(" ", "");
-                                    Export(row, ref countrow, ref excelworksheet);
+                                    //row.OBOSDOC = row.OBOSDOC.Replace(@"--",@"-");
+                                    bool done = true;
+                                    Search_list(directory, row.SHFRDOC + "*" + item.Replace(" ", ""), ref excelworksheet, ref countrow, ref row, ref done);
+                                    //Export(row, ref countrow, ref excelworksheet);
+                                    if (done)
+                                    {
+                                        row.NAIMIZOBR = "Не удалось найти вспомогательный файл";
+                                        Export(row, ref countrow, ref excelworksheet);
+
+                                    }
                                 }
                                 
                             }
@@ -291,6 +336,7 @@ namespace registry
             Row row = new Row();
             row.Directory = _file.FullName;
             row.DATEOFLASTWRITE = _file.LastWriteTime.ToShortDateString();
+            string directory = _file.DirectoryName;
             Regex regExProject = new Regex("^Шифр..*$"); // находим шифр проекта по этой маске
             Regex regExStage = new Regex("^.*[Э|э]тап.*$"); // находим этап по этой маске
             Regex regExStage2 = new Regex("^[Э|э]тап.*$"); // вариация для другого шаблона
@@ -377,13 +423,83 @@ namespace registry
             if (wdtbl.Cell(0, oboz).Range.Text != "\r\a") // фича ворда, последняя строка табоицы записывается в строку с индексом 0
             {
                 row.OBOSDOC = wdtbl.Cell(0, oboz).Range.Text.Replace("\r\a", "");
-                Export(row, ref countrow, ref excelworksheet);
+                bool done = true;
+                Search_list(directory, wdtbl.Cell(0, oboz).Range.Text.Replace("\r\a", ""), ref excelworksheet, ref countrow, ref row, ref done);
+                if (done)
+                {
+                    row.NAIMIZOBR = "Не удалось найти вспомогательный файл";
+                    Export(row, ref countrow, ref excelworksheet);
+
+                }
+                //Export(row, ref countrow, ref excelworksheet);
             }
             wddoc.Close(SaveChanges: false);
             wdapp.Quit(SaveChanges: false);
             sw_total.Stop();
             Console.WriteLine("Reading (new): " + sw_total.ElapsedMilliseconds + " ms");
 
+        }
+
+        private static void Search_list(string sDir, string file_name, ref Excel.Worksheet excelworksheet, ref int countrow, ref Row row, ref bool done)
+        {
+            try
+            {
+                
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    file_name = file_name.Replace(@"/", "*").Replace(@".", @"_");
+                    foreach (string f in Directory.GetFiles(d, "*" + file_name + "*.doc*"))
+                    {
+                        if (new DirectoryInfo(d).Name == "Новая папка")
+                        {
+
+                            Console.WriteLine(f);
+                            Logger.WriteLine(f);
+                            FileInfo fi1 = new FileInfo(f);
+                            done = false;
+                            GetList(fi1, ref excelworksheet, ref countrow, ref row);
+                        }
+                        
+                    }
+                    Search_list(d, file_name, ref excelworksheet, ref countrow, ref row, ref done);
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                Console.WriteLine(excpt.Message);
+                Logger.WriteLine(excpt.Message);
+            }
+        }
+
+        private static void GetList(FileInfo _file, ref Excel.Worksheet excelworksheet, ref int countrow, ref Row row)
+        {
+            Word.Application wdapp = null;
+            Word.Document wddoc = null;
+            Word.Table wdtbl = null;
+            //Word.Section wdcoll = null;
+
+            wdapp = new Word.Application();
+            wddoc = wdapp.Documents.Open(_file.FullName, ReadOnly: true, AddToRecentFiles: false);
+            wdtbl = wddoc.Tables[1];
+            //wdcoll = wddoc.Sections[1];
+            string obosnachdocleft = row.OBOSDOC;
+            for (int i = 1; i < wdtbl.Rows.Count; i++)
+            {
+                for (int j = 1; j < wdtbl.Columns.Count; j++)
+                {
+                    Console.WriteLine(i + ", " + j + " : " + wdtbl.Cell(i, j).Range.Text.Replace("\a", "").Replace("\r", ""));
+                }
+                if (wdtbl.Cell(i, 1).Range.Text.Replace("\a", "").Replace("\r", "") != "")
+                {
+                    row.NAIMIZOBR = wdtbl.Cell(i, 2).Range.Text.Replace("\a", "").Replace("\r", "");
+                    row.OBOSDOC = obosnachdocleft + "_Л." + wdtbl.Cell(i, 1).Range.Text.Replace("\a", "").Replace("\r", "");
+                    if (row.NAIMIZOBR != "Наименование") Export(row, ref countrow, ref excelworksheet);
+                }
+
+            }
+            
+            wddoc.Close(SaveChanges: false);
+            wdapp.Quit(SaveChanges: false);
         }
     }
 }
