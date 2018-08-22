@@ -76,7 +76,7 @@ namespace registry
                 {
                     foreach (string f in Directory.GetFiles(d, "Реестр РД*.xls*"))
                     {
-                        if (new DirectoryInfo(d).Name == "5-РД")
+                        if (new DirectoryInfo(d).Name == "5-РД5")
                         {
                             Console.WriteLine(f);
                             Logger.WriteLine(f);
@@ -450,15 +450,15 @@ namespace registry
                     file_name = file_name.Replace(@"/", "*").Replace(@".", @"_");
                     foreach (string f in Directory.GetFiles(d, "*" + file_name + "*.doc*"))
                     {
-                        if (new DirectoryInfo(d).Name == "Новая папка")
-                        {
+                        //if (new DirectoryInfo(d).Name == "*")
+                        //{
 
                             Console.WriteLine(f);
                             Logger.WriteLine(f);
                             FileInfo fi1 = new FileInfo(f);
                             done = false;
                             GetList(fi1, ref excelworksheet, ref countrow, ref row);
-                        }
+                        //}
                         
                     }
                     Search_list(d, file_name, ref excelworksheet, ref countrow, ref row, ref done);
@@ -483,6 +483,14 @@ namespace registry
             wdtbl = wddoc.Tables[1];
             //wdcoll = wddoc.Sections[1];
             string obosnachdocleft = row.OBOSDOC;
+            string[,] table = new string[wdtbl.Rows.Count, wdtbl.Columns.Count];
+            for (int i = 0; i < wdtbl.Rows.Count; i++)
+            {
+                for (int j = 0; j < wdtbl.Columns.Count; j++)
+                {
+                    table[i, j] = wdtbl.Cell(i, j).Range.Text;
+                }
+            }
             for (int i = 1; i < wdtbl.Rows.Count; i++)
             {
                 //for (int j = 1; j < wdtbl.Columns.Count; j++)
@@ -492,12 +500,29 @@ namespace registry
                 if (wdtbl.Cell(i, 1).Range.Text.Replace("\a", "").Replace("\r", "") != "")
                 {
                     row.NAIMIZOBR = wdtbl.Cell(i, 2).Range.Text.Replace("\a", "").Replace("\r", "");
-                    row.OBOSDOC = obosnachdocleft + "_Л." + wdtbl.Cell(i, 1).Range.Text.Replace("\a", "").Replace("\r", "");
-                    if (row.NAIMIZOBR != "Наименование") Export(row, ref countrow, ref excelworksheet);
+                    foreach (var item in wdtbl.Cell(i, 1).Range.Text.Split('\r'))
+                    {
+                        row.OBOSDOC = obosnachdocleft + "_Л." + item.Replace("\a", "").Replace("\r", "");
+                        if (row.NAIMIZOBR != "Наименование" && item.Replace("\a", "").Replace("\r", "") != "") Export(row, ref countrow, ref excelworksheet);
+                    }
+                    
+                    
                 }
 
             }
-            
+            // фишка ворда индекс последней строки 0
+            if (wdtbl.Cell(0, 1).Range.Text.Replace("\a", "").Replace("\r", "") != "")
+            {
+                string[] izobr = wdtbl.Cell(0, 2).Range.Text.Split('\r');
+                int flag = 0;
+                //row.NAIMIZOBR = wdtbl.Cell(0, 2).Range.Text.Replace("\a", "").Replace("\r", "");
+                foreach (var item in wdtbl.Cell(0, 1).Range.Text.Split('\r'))
+                {
+                    row.NAIMIZOBR = izobr[flag].Replace("\a", "").Replace("\r", ""); flag++;
+                    row.OBOSDOC = obosnachdocleft + "_Л." + item.Replace("\a", "").Replace("\r", "");
+                    if (row.NAIMIZOBR != "Наименование" && item.Replace("\a", "").Replace("\r", "") != "") Export(row, ref countrow, ref excelworksheet);
+                }
+            }
             wddoc.Close(SaveChanges: false);
             wdapp.Quit(SaveChanges: false);
         }
