@@ -36,6 +36,8 @@ namespace registry
             easy_style.SetFont(easy_font);
             easy_style.Alignment = HorizontalAlignment.Center;
             easy_style.VerticalAlignment = VerticalAlignment.Center;
+            Console.WriteLine("Будет вставленно строк : " + dt.Rows.Count);
+            Logger.WriteLine("Будет вставленно строк : " + dt.Rows.Count.ToString());
             for (int rownum = 2; rownum < dt.Rows.Count + 2; rownum++)
             {
                 IRow row = worksheet.CreateRow(rownum);
@@ -54,26 +56,13 @@ namespace registry
                 Cell_20.Hyperlink = (FileLink);
                 Cell_20.CellStyle = (hlink_style);
 
-
-                for (int celnum = 0; celnum < dt.Columns.Count; celnum++)
-                {
-                    //ICell Cell = row.CreateCell(celnum);
-                    //Cell.SetCellValue(Convert.ToString(dt.Rows[rownum - 2][celnum]));
-                    
-                }
-                
             }
 
-            for (int celnum = 0; celnum < dt.Columns.Count; celnum++)
+            if (!File.Exists("test_output.xlsx"))
             {
-                //worksheet.AutoSizeColumn(celnum);
+                File.Delete("test_output.xlsx");
             }
-
-            if (!File.Exists("test2.xlsx"))
-            {
-                File.Delete("test2.xlsx");
-            }
-            using (FileStream file = new FileStream("test2.xlsx", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            using (FileStream file = new FileStream("test_output.xlsx", FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
             {               
                 workbook.Write(file);
             }
