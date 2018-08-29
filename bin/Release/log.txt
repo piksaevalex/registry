@@ -71,3 +71,23 @@
 28.08.2018 15:23:15:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\12\5-РД5\Новая папка\2015_0034_ГПНО-01-01-ГП_01.doc
 28.08.2018 15:31:03:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\12\5-РД5\Реестр РД.xls
 28.08.2018 15:31:03:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\12\5-РД5\Новая папка\2015_0034_ГПНО-01-01-ГП_01.doc
+29.08.2018 13:49:06:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Реестр РД.xlsx
+29.08.2018 13:49:07:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-03-00-АК_01.docx
+29.08.2018 13:49:10:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-07-01_ТХ_01.docx
+29.08.2018 13:49:12:    Запрашиваемый номер семейства не существует.
+29.08.2018 13:49:13:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\10\5-РД\Реестр РД (8).xls
+29.08.2018 13:49:13:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Реестр РД (9).xls
+29.08.2018 13:49:13:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Новая папка\2017_4201-03-001-ЭС_01.doc
+29.08.2018 13:49:15:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Реестр РД.xls
+29.08.2018 13:49:15:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Новая папка\2015_0034_ГПНО-01-01-АС_01.docx
+29.08.2018 13:49:18:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Новая папка\2015_0034_ГПНО-28-ГП_01.doc
+29.08.2018 13:49:21:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\3\5-РД\Реестр РД (1).xls
+29.08.2018 13:49:21:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\3\5-РД\Новая папка\2015_0034_ГПНО-01-01-АС_01.docx
+29.08.2018 13:49:24:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\4\5-РД\Реестр РД (2).xls
+29.08.2018 13:49:24:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\5\5-РД\Реестр РД (3).xls
+29.08.2018 13:49:24:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\6\5-РД\Реестр РД (4).xls
+29.08.2018 13:49:24:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\6\5-РД\Новая папка\2017_0558-002-АК-01.docx
+29.08.2018 13:49:26:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\7\5-РД\Реестр РД (5).xls
+29.08.2018 13:49:27:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\8\5-РД\Реестр РД (6).xls
+29.08.2018 13:49:27:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\9\5-РД\Реестр РД (7).xls
+29.08.2018 13:49:29:    Будет вставленно строк : 736
