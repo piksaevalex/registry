@@ -2,13 +2,13 @@
 using System.Data;
 using System.Data.OleDb;
 using Excel = Microsoft.Office.Interop.Excel;
-using System.Reflection;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Word = Microsoft.Office.Interop.Word;
+
 
 namespace registry
 {
@@ -18,57 +18,105 @@ namespace registry
         {
             try
             {
+                Stopwatch swTotal = new Stopwatch();
+                swTotal.Start();
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Columns.Add("SHFR");
+                dt.Columns.Add("SHFRDOC");
+                dt.Columns.Add("MARKA");
+                dt.Columns.Add("OBOSDOC");
+                dt.Columns.Add("NAIMOBJ");
+                dt.Columns.Add("STAGE");
+                dt.Columns.Add("NAIMIZOBR");
+                dt.Columns.Add("NAIMPROJE");
+                dt.Columns.Add("DATEOFLASTWRITE");
+                dt.Columns.Add("Directory");
                 int countrow = 5;
                 string directory = AppDomain.CurrentDomain.BaseDirectory;
                 // Создаём ссылку на Excel приложение
-                Excel.Workbook excelappworkbook;                                    // Создаём ссылку на рабочую книгу Excel-приложения
-                Excel.Sheets excelsheets;                                           // Создаём ссылку для работы со страницами Excel-приложения
-                Excel.Worksheet excelworksheet;                                    // Создаём ссылку на рабочую страницу Excel-приложения
+                Excel.Workbook excelappworkbook;                                    
+                // Создаём ссылку на рабочую книгу Excel-приложения
+                Excel.Sheets excelsheets;                                           
+                // Создаём ссылку для работы со страницами Excel-приложения
+                Excel.Worksheet excelworksheet;                                    
+                // Создаём ссылку на рабочую страницу Excel-приложения
                 Excel.Application excelapp = new Excel.Application();
 
                 excelappworkbook = excelapp.Workbooks.Open(directory + "Ш-01.07.03.03-38.xls",           // Устанавливаем ссылку рабочей книги на книгу по пути взятого из TextBox. Параметры(FileName(Имя открываемого файла файла), 
                         Type.Missing, Type.Missing, Type.Missing,                       // UpdateLinks(Способ обновления ссылок в файле), ReadOnly(При значении true открытие только для чтения), Format(Определение формата символа разделителя)
                         "WWWWW", "WWWWW", Type.Missing, Type.Missing, Type.Missing,     // Password(Пароль доступа к файлу до 15 символов), WriteResPassword(Пароль на сохранение файла), IgnoreReadOnlyRecommended(При значении true отключается вывода запроса на работу без внесения изменений), Origin(Тип текстового файла)
                         Type.Missing, Type.Missing, Type.Missing, Type.Missing,         // Delimiter(Разделитель при Format = 6), Editable(Используется только для надстроек Excel 4.0), Notify(При значении true имя файла добавляется в список нотификации файлов), 
-                        Type.Missing, Type.Missing);                                    // Converter(Используется для передачи индекса конвертера файла используемого для открытия файла), AddToMRU(При true имя файла добавляется в список открытых файлов)
-                excelsheets = excelappworkbook.Worksheets;                      // Устанавливаем ссылку Страниц на страницы новой книги
+                        Type.Missing, Type.Missing);                                    
+                // Converter(Используется для передачи индекса конвертера файла используемого для открытия файла), AddToMRU(При true имя файла добавляется в список открытых файлов)
+                excelsheets = excelappworkbook.Worksheets;                      
+                // Устанавливаем ссылку Страниц на страницы новой книги
                 excelworksheet = (Excel.Worksheet)excelsheets.get_Item(1);
                 //Search_list(directory, "", ref excelworksheet, ref countrow);
-                DirSearchEx(directory, ref excelworksheet, ref countrow);
+                DirSearchEx(directory, ref dt);
                 excelappworkbook.Save();
                 excelapp.Quit();
 
 
 
-                Excel.Application excelapp2;                                         // Создаём ссылку на Excel приложение
-                Excel.Workbook excelappworkbook2;                                    // Создаём ссылку на рабочую книгу Excel-приложения
-                Excel.Sheets excelsheets2;                                           // Создаём ссылку для работы со страницами Excel-приложения
-                Excel.Worksheet excelworksheet2;                                    // Создаём ссылку на рабочую страницу Excel-приложения
+                Excel.Application excelapp2;                                         
+                // Создаём ссылку на Excel приложение
+                Excel.Workbook excelappworkbook2;                                    
+                // Создаём ссылку на рабочую книгу Excel-приложения
+                Excel.Sheets excelsheets2;                                           
+                // Создаём ссылку для работы со страницами Excel-приложения
+                Excel.Worksheet excelworksheet2;                                    
+                // Создаём ссылку на рабочую страницу Excel-приложения
 
                 excelapp2 = new Excel.Application();
                 excelappworkbook2 = excelapp2.Workbooks.Open(directory + "Ш-01.07.03.03-38.xls",           // Устанавливаем ссылку рабочей книги на книгу по пути взятого из TextBox. Параметры(FileName(Имя открываемого файла файла), 
                         Type.Missing, Type.Missing, Type.Missing,                       // UpdateLinks(Способ обновления ссылок в файле), ReadOnly(При значении true открытие только для чтения), Format(Определение формата символа разделителя)
                         "WWWWW", "WWWWW", Type.Missing, Type.Missing, Type.Missing,     // Password(Пароль доступа к файлу до 15 символов), WriteResPassword(Пароль на сохранение файла), IgnoreReadOnlyRecommended(При значении true отключается вывода запроса на работу без внесения изменений), Origin(Тип текстового файла)
                         Type.Missing, Type.Missing, Type.Missing, Type.Missing,         // Delimiter(Разделитель при Format = 6), Editable(Используется только для надстроек Excel 4.0), Notify(При значении true имя файла добавляется в список нотификации файлов), 
-                        Type.Missing, Type.Missing);                                    // Converter(Используется для передачи индекса конвертера файла используемого для открытия файла), AddToMRU(При true имя файла добавляется в список открытых файлов)
-                excelsheets2 = excelappworkbook2.Worksheets;                      // Устанавливаем ссылку Страниц на страницы новой книги
+                        Type.Missing, Type.Missing);                                    
+                // Converter(Используется для передачи индекса конвертера файла используемого для открытия файла), AddToMRU(При true имя файла добавляется в список открытых файлов)
+                excelsheets2 = excelappworkbook2.Worksheets;                      
+                // Устанавливаем ссылку Страниц на страницы новой книги
                 excelworksheet2 = (Excel.Worksheet)excelsheets2.get_Item(1);
 
-                DirSearchWord(directory, ref excelworksheet2, ref countrow);
+                DirSearchWord(directory, ref dt);
 
                 excelappworkbook2.Save();
                 excelapp2.Quit();
+                swTotal.Stop();
+                Console.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
+                swTotal.Reset();
+                swTotal.Start();
+                ExportData.ExportDT(dt);
+                swTotal.Stop();
+                Console.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
                 Console.WriteLine("----------ВСЁ!-------------");
                 Console.ReadKey();
             }
-            catch (System.Exception excpt)
+            catch (Exception excpt)
             {
                 Console.WriteLine(excpt.Message);
                 Logger.WriteLine(excpt.Message);
             }
         }
 
-        static void DirSearchEx(string sDir, ref Excel.Worksheet excelworksheet, ref int countrow)
+        static void DtAdd(ref DataTable dt, ref Row row)
+        {
+            DataRow dr = dt.NewRow();
+            dr["SHFR"] = row.SHFR;
+            dr["SHFRDOC"] = row.SHFRDOC;
+            dr["MARKA"] = row.MARKA;
+            dr["OBOSDOC"] = row.OBOSDOC;
+            dr["NAIMOBJ"] = row.NAIMOBJ;
+            dr["STAGE"] = row.STAGE;
+            dr["NAIMIZOBR"] = row.NAIMIZOBR;
+            dr["NAIMPROJE"] = row.NAIMPROJE;
+            dr["DATEOFLASTWRITE"] = row.DATEOFLASTWRITE;
+            dr["Directory"] = row.Directory;
+            dt.Rows.Add(dr);
+        }
+
+        static void DirSearchEx(string sDir, ref DataTable dt)
         {
             try
             {
@@ -81,13 +129,13 @@ namespace registry
                             Console.WriteLine(f);
                             Logger.WriteLine(f);
                             FileInfo fi1 = new FileInfo(f);
-                            File_Selected_New(fi1, ref excelworksheet, ref countrow);
+                            File_Selected_New(fi1, ref dt);
                         }
                     }
-                    DirSearchEx(d, ref excelworksheet, ref countrow);
+                    DirSearchEx(d, ref dt);
                 }  
             }
-            catch (System.Exception excpt)
+            catch (Exception excpt)
             {
                 Console.WriteLine(excpt.Message);
                 Logger.WriteLine(excpt.Message);
@@ -95,7 +143,7 @@ namespace registry
             
         }
 
-        static void DirSearchWord(string sDir, ref Excel.Worksheet excelworksheet, ref int countrow)
+        static void DirSearchWord(string sDir, ref DataTable dt)
         {
             try
             {
@@ -108,13 +156,13 @@ namespace registry
                             Console.WriteLine(f);
                             Logger.WriteLine(f);
                             FileInfo fi1 = new FileInfo(f);
-                            Word(fi1, ref excelworksheet, ref countrow);
+                            Word(fi1, ref dt);
                         }
                     }
-                    DirSearchWord(d, ref excelworksheet, ref countrow);
+                    DirSearchWord(d, ref dt);
                 }
             }
-            catch (System.Exception excpt)
+            catch (Exception excpt)
             {
                 Console.WriteLine(excpt.Message);
                 Logger.WriteLine(excpt.Message);
@@ -123,6 +171,11 @@ namespace registry
 
         static string GetConnectionString(FileInfo _file)
         {
+            if (_file == null)
+            {
+                throw new ArgumentNullException(nameof(_file));
+            }
+
             Dictionary<string, string> props = new Dictionary<string, string>();
 
 
@@ -154,30 +207,34 @@ namespace registry
             return sb.ToString();
         }
 
-        private static void File_Selected_New(FileInfo _file, ref Excel.Worksheet excelworksheet, ref int countrow)
+        private static void File_Selected_New(FileInfo _file, ref DataTable dt)
         {
-            Stopwatch sw_total = new Stopwatch();
-            sw_total.Start();
+            if (_file == null)
+            {
+                throw new ArgumentNullException(nameof(_file));
+            }
+
+            
             DataSet ds = new DataSet();
             string connectionString = GetConnectionString(_file);
-            using (OleDbConnection conn = new System.Data.OleDb.OleDbConnection(connectionString))
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
-                System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+                OleDbCommand cmd = new OleDbCommand();
                 cmd.Connection = conn;
                 // Get all Sheets in Excel File
-                System.Data.DataTable dtSheet = conn.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Tables, null);
+                DataTable dtSheet = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
                 // Loop through all Sheets to get data
                 foreach (DataRow dr in dtSheet.Rows)
                 {
                     string sheetName = dr["TABLE_NAME"].ToString();
                     // Get all rows from the Sheet
                     cmd.CommandText = "SELECT * FROM [" + sheetName + "]";
-                    System.Data.DataTable dt = new System.Data.DataTable();
-                    dt.TableName = sheetName;
-                    System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter(cmd);
-                    da.Fill(dt);
-                    ds.Tables.Add(dt);
+                    DataTable dts = new DataTable();
+                    dts.TableName = sheetName;
+                    OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                    da.Fill(dts);
+                    ds.Tables.Add(dts);
                 }
                 string[,] table = new string[ds.Tables[0].Rows.Count, ds.Tables[0].Columns.Count];
                 int shifrdoc = 1; // индекс столбца шифрдокумента
@@ -205,7 +262,6 @@ namespace registry
                 row.NAIMPROJE = table[0, 0];
                 row.Directory = _file.FullName;
                 row.DATEOFLASTWRITE = _file.LastWriteTime.ToShortDateString();
-                //string directory = AppDomain.CurrentDomain.BaseDirectory;
                 string directory = _file.DirectoryName;
                 for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                 {
@@ -223,7 +279,6 @@ namespace registry
                                     {
                                         if (regExStage_number.Match(item).Success) row.STAGE = item;
                                     }
-                                    //row.STAGE = table[j, i].Remove(table[j, i].IndexOf(' '));
                                 }
                                 if (regExStage2.Match(table[j, i]).Success)
                                 {
@@ -231,7 +286,6 @@ namespace registry
                                     {
                                         if (regExStage_number.Match(item).Success) row.STAGE = item;
                                     }
-                                    //row.STAGE = table[j, i].Remove(0, table[j, i].IndexOf(' '));
                                 }
                                 if (i > 1 && table[j, i] != "")
                                 {
@@ -242,14 +296,15 @@ namespace registry
                                         {
                                             row.OBOSDOC = row.SHFRDOC + "-" + row.MARKA;
                                             bool done = true;
-                                            Search_list(directory, row.SHFRDOC + "*" + row.MARKA, ref excelworksheet, ref countrow, ref row, ref done);
+                                            List<Model> FilesNames = new List<Model>();
+                                            Search_list(directory, row.SHFRDOC + "*" + row.MARKA, ref done, ref dt, ref FilesNames);
+                                            ChooseList(FilesNames, ref row, ref dt);
                                             if (done)
                                             {
                                                 row.NAIMIZOBR = "Не удалось найти вспомогательный файл";
-                                                Export(row, ref countrow, ref excelworksheet);
+                                                DtAdd(ref dt, ref row);
 
                                             }
-                                            //Export(row, ref countrow, ref excelworksheet);
                                         }
                                         
                                     }
@@ -271,19 +326,17 @@ namespace registry
                             if (row.SHFRDOC != "Шифр" && table[j,3] != "")
                             {
                                 //row.MARKA = table[j, 3];
-                                var Marks = table[j, 3].Split(',');
-                                foreach (var item in Marks)
+                                foreach (var item in table[j, 3].Split(','))
                                 {
                                     row.OBOSDOC = row.SHFRDOC + "-" + item.Replace(" ", "");
-                                    //row.OBOSDOC = row.OBOSDOC.Replace(@"--",@"-");
                                     bool done = true;
-                                    Search_list(directory, row.SHFRDOC + "*" + item.Replace(" ", ""), ref excelworksheet, ref countrow, ref row, ref done);
-                                    //Export(row, ref countrow, ref excelworksheet);
+                                    List<Model> FilesNames = new List<Model>();
+                                    Search_list(directory, row.SHFRDOC + "*" + item.Replace(" ", ""), ref done, ref dt, ref FilesNames);
+                                    ChooseList(FilesNames, ref row, ref dt);
                                     if (done)
                                     {
                                         row.NAIMIZOBR = "Не удалось найти вспомогательный файл";
-                                        Export(row, ref countrow, ref excelworksheet);
-
+                                        DtAdd(ref dt, ref row);
                                     }
                                 }
                                 
@@ -292,38 +345,19 @@ namespace registry
                             break;
                     }
                     if (table[j, 0] == "Шифр" && table[j, 1] == "Сооружение (площадка, трасса, система)" && table[j, 3] == "Марка" && table[j, 4] == "Изменения") { template = 1; }
-
                 }
+            }                     
+        }
+
+        private static void Word(FileInfo _file, ref DataTable dt)
+        {
+            if (_file == null)
+            {
+                throw new ArgumentNullException(nameof(_file));
             }
-            sw_total.Stop();
-            Console.WriteLine("Reading (new): " + sw_total.ElapsedMilliseconds + " ms");
-            
-        }
-        
 
-        private static void Export(Row row, ref int countrow, ref Excel.Worksheet excelworksheet)
-        {
-            if (row.NAIMPROJE != null) excelworksheet.Cells[countrow, 6].Value = row.NAIMPROJE;
-            if (row.SHFR != null) excelworksheet.Cells[countrow, 5].Value = row.SHFR;
-            if (row.OBOSDOC != null) excelworksheet.Cells[countrow, 7].Value = row.OBOSDOC;
-            if (row.NAIMOBJ != null) excelworksheet.Cells[countrow, 8].Value = row.NAIMOBJ;
-            if (row.NAIMIZOBR != null) excelworksheet.Cells[countrow, 9] = row.NAIMIZOBR;
-            if (row.STAGE != null) excelworksheet.Cells[countrow, 19] = row.STAGE;
-            //if (row.Directory != null) excelworksheet.Cells[countrow, 20] = row.Directory;
-            if (row.DATEOFLASTWRITE != null) excelworksheet.Cells[countrow, 3] = row.DATEOFLASTWRITE;
-            excelworksheet.Hyperlinks.Add(
-                (Excel.Range)excelworksheet.Cells[countrow, 20],
-                row.Directory,
-                string.Empty,
-                "Screen Tip Text",
-                row.Directory);
-            countrow++;
-        }
-
-        private static void Word(FileInfo _file, ref Excel.Worksheet excelworksheet, ref int countrow)
-        {
-            Stopwatch sw_total = new Stopwatch();
-            sw_total.Start();
+            Stopwatch swTotal = new Stopwatch();
+            swTotal.Start();
             Word.Application wdapp = null;
             Word.Document wddoc = null;
             Word.Table wdtbl = null;
@@ -363,7 +397,8 @@ namespace registry
                     {
                         if (row.NAIMIZOBR == "Наименование") row.NAIMIZOBR = "";
                         row.OBOSDOC = wdtbl.Cell(i, oboz).Range.Text.Replace("\r\a", "");
-                        Export(row, ref countrow, ref excelworksheet);
+                        DtAdd(ref dt, ref row);
+
                     }
                         
                 }
@@ -386,7 +421,7 @@ namespace registry
                             row.STAGE = row.STAGE.Replace(":", "");
                             if (regExStage3.Match(row.STAGE).Success)
                             {
-                                row.STAGE = row.STAGE.Remove(row.STAGE.IndexOf("-"));
+                                row.STAGE = row.STAGE.Remove(startIndex: row.STAGE.IndexOf("-"));
                                 row.STAGE = row.STAGE.Remove(0, row.STAGE.IndexOf(' ') + 1);
                             }
                             //str = str.Split('.')[1];
@@ -424,64 +459,101 @@ namespace registry
             {
                 row.OBOSDOC = wdtbl.Cell(0, oboz).Range.Text.Replace("\r\a", "");
                 bool done = true;
-                Search_list(directory, wdtbl.Cell(0, oboz).Range.Text.Replace("\r\a", ""), ref excelworksheet, ref countrow, ref row, ref done);
+                List<Model> FilesNames = new List<Model>();
+                Search_list(directory, wdtbl.Cell(0, oboz).Range.Text.Replace("\r\a", ""), ref done, ref dt, ref FilesNames);
+                ChooseList(FilesNames, ref row, ref dt);
                 if (done)
                 {
                     row.NAIMIZOBR = "Не удалось найти вспомогательный файл";
-                    Export(row, ref countrow, ref excelworksheet);
-
+                    DtAdd(ref dt, ref row);
                 }
-                //Export(row, ref countrow, ref excelworksheet);
             }
             wddoc.Close(SaveChanges: false);
             wdapp.Quit(SaveChanges: false);
-            sw_total.Stop();
-            Console.WriteLine("Reading (new): " + sw_total.ElapsedMilliseconds + " ms");
+            swTotal.Stop();
+            Console.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
 
         }
 
-        private static void Search_list(string sDir, string file_name, ref Excel.Worksheet excelworksheet, ref int countrow, ref Row row, ref bool done)
-        {
-            try
+        private static void Search_list(string sDir, string file_name, ref bool done, ref DataTable dt, ref List<Model> FilesNames)
+        {           
+            if (file_name == null)
             {
-                
+                throw new ArgumentNullException(nameof(file_name));
+            }
+            try
+            {                
                 foreach (string d in Directory.GetDirectories(sDir))
-                {
+                {                    
                     file_name = file_name.Replace(@"/", "*").Replace(@".", @"_");
                     foreach (string f in Directory.GetFiles(d, "*" + file_name + "*.doc*"))
                     {
-                        //if (new DirectoryInfo(d).Name == "*")
-                        //{
-
-                            Console.WriteLine(f);
-                            Logger.WriteLine(f);
-                            FileInfo fi1 = new FileInfo(f);
-                            done = false;
-                            GetList(fi1, ref excelworksheet, ref countrow, ref row);
-                        //}
-                        
+                        done = false;
+                        FilesNames.Add( new Model(){ Path = f, index = 0 } );                      
                     }
-                    Search_list(d, file_name, ref excelworksheet, ref countrow, ref row, ref done);
+                    Search_list(d, file_name, ref done, ref dt, ref FilesNames);
                 }
             }
-            catch (System.Exception excpt)
+            catch (Exception excpt)
             {
                 Console.WriteLine(excpt.Message);
                 Logger.WriteLine(excpt.Message);
             }
+            
         }
 
-        private static void GetList(FileInfo _file, ref Excel.Worksheet excelworksheet, ref int countrow, ref Row row)
+        // Нахождение самой последней версии инфо о листе
+        private static void ChooseList(List<Model> Files, ref Row row, ref DataTable dt)
+        {
+            Regex regExIZM = new Regex("^.*Изм.*$");
+            if (Files.Count > 1)
+            {
+                int maxindex = -1;
+                int truefileindex = 0;
+                foreach (var File in Files)
+                {
+                    // разобьём путь к файлу по каталогам 
+                    string[] item = File.Path.Split('\\');
+                    foreach (var catalog in item)
+                    {
+                        // Нахожим каталог со значением Изменения
+                        if (regExIZM.Match(catalog).Success)
+                        {
+                            int numberofchanche = Convert.ToInt32(Regex.Replace(catalog, @"[^\d]+", ""));
+                            File.index = numberofchanche;
+                        }
+                    }
+
+                    if (File.index > maxindex)
+                    {
+                        maxindex = File.index;
+                        truefileindex = Files.IndexOf(File);
+                    }
+                }
+                Console.WriteLine(Files[truefileindex].Path);
+                Logger.WriteLine(Files[truefileindex].Path);
+                FileInfo fi1 = new FileInfo(Files[truefileindex].Path);
+                GetList(fi1, ref row, ref dt);
+            }
+
+            if (Files.Count == 1)
+            {
+                Console.WriteLine(Files[0].Path);
+                Logger.WriteLine(Files[0].Path);
+                FileInfo fi1 = new FileInfo(Files[0].Path);
+                GetList(fi1, ref row, ref dt);
+            }
+        }
+
+        // Распарсить инфу о листах
+        private static void GetList(FileInfo _file, ref Row row, ref DataTable dt)
         {
             Word.Application wdapp = null;
             Word.Document wddoc = null;
             Word.Table wdtbl = null;
-            //Word.Section wdcoll = null;
-
             wdapp = new Word.Application();
             wddoc = wdapp.Documents.Open(_file.FullName, ReadOnly: true, AddToRecentFiles: false);
             wdtbl = wddoc.Tables[1];
-            //wdcoll = wddoc.Sections[1];
             string obosnachdocleft = row.OBOSDOC;
             string[,] table = new string[wdtbl.Rows.Count, wdtbl.Columns.Count];
             for (int i = 0; i < wdtbl.Rows.Count; i++)
@@ -493,17 +565,19 @@ namespace registry
             }
             for (int i = 1; i < wdtbl.Rows.Count; i++)
             {
-                //for (int j = 1; j < wdtbl.Columns.Count; j++)
-                //{
-                    //Console.WriteLine(i + ", " + j + " : " + wdtbl.Cell(i, j).Range.Text.Replace("\a", "").Replace("\r", ""));
-                //}
+                string[] izobr = wdtbl.Cell(i, 2).Range.Text.Split('\r');
+                int flag = 0;
                 if (wdtbl.Cell(i, 1).Range.Text.Replace("\a", "").Replace("\r", "") != "")
-                {
-                    row.NAIMIZOBR = wdtbl.Cell(i, 2).Range.Text.Replace("\a", "").Replace("\r", "");
+                {  
                     foreach (var item in wdtbl.Cell(i, 1).Range.Text.Split('\r'))
                     {
+                        row.NAIMIZOBR = izobr[flag].Replace("\a", "").Replace("\r", "");
                         row.OBOSDOC = obosnachdocleft + "_Л." + item.Replace("\a", "").Replace("\r", "");
-                        if (row.NAIMIZOBR != "Наименование" && item.Replace("\a", "").Replace("\r", "") != "") Export(row, ref countrow, ref excelworksheet);
+                        if (row.NAIMIZOBR != "Наименование" && item.Replace("\a", "").Replace("\r", "") != "")
+                        {
+                            DtAdd(ref dt, ref row);
+                            flag++;
+                        }
                     }
                     
                     
@@ -518,9 +592,13 @@ namespace registry
                 //row.NAIMIZOBR = wdtbl.Cell(0, 2).Range.Text.Replace("\a", "").Replace("\r", "");
                 foreach (var item in wdtbl.Cell(0, 1).Range.Text.Split('\r'))
                 {
-                    row.NAIMIZOBR = izobr[flag].Replace("\a", "").Replace("\r", ""); flag++;
+                    row.NAIMIZOBR = izobr[flag].Replace("\a", "").Replace("\r", ""); 
                     row.OBOSDOC = obosnachdocleft + "_Л." + item.Replace("\a", "").Replace("\r", "");
-                    if (row.NAIMIZOBR != "Наименование" && item.Replace("\a", "").Replace("\r", "") != "") Export(row, ref countrow, ref excelworksheet);
+                    if (row.NAIMIZOBR != "Наименование" && item.Replace("\a", "").Replace("\r", "") != "")
+                    { 
+                        DtAdd(ref dt, ref row);
+                        flag++;
+                    }
                 }
             }
             wddoc.Close(SaveChanges: false);

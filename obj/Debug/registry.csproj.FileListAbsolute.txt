@@ -14,3 +14,9 @@ C:\Users\Алёша\Desktop\git reestr\registry\obj\Debug\registry.csproj.Resolv
 C:\Users\Алёша\Desktop\git reestr\registry\obj\Debug\registry.csproj.CoreCompileInputs.cache
 C:\Users\Алёша\Desktop\git reestr\registry\obj\Debug\registry.exe
 C:\Users\Алёша\Desktop\git reestr\registry\obj\Debug\registry.pdb
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Debug\NPOI.dll
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Debug\NPOI.OOXML.dll
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\Алёша\Desktop\git reestr\registry\bin\Debug\NPOI.xml
