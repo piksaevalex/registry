@@ -652,6 +652,8 @@ namespace registry
             {
                 Console.WriteLine(excpt.Message);
                 Logger.WriteLine(excpt.Message);
+                row.NAIMIZOBR = "Ошибка в файле описи листов";
+                DtAdd(ref dt, ref row);
             }
             finally
             {
