@@ -39,11 +39,13 @@ namespace registry
 
                 swTotal.Stop();
                 Console.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
+                Logger.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
                 swTotal.Reset();
                 swTotal.Start();
                 ExportData.ExportDT(dt);
                 swTotal.Stop();
                 Console.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
+                Logger.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
                 Console.WriteLine("----------ВСЁ!-------------");
                 Console.ReadKey();
             }
