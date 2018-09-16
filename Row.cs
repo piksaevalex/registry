@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace registry
 {
-    class Row
+    public class Row
     {
         public string SHFR { get; set; } // Шифр проекта
         public string SHFRDOC { get; set; } // Шифр документа

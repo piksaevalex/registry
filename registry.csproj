@@ -57,9 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyExcel.cs" />
     <Compile Include="ExportData.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="MyWord.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Row.cs" />
