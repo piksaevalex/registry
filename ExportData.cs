@@ -36,8 +36,6 @@ namespace registry
             easy_style.SetFont(easy_font);
             easy_style.Alignment = HorizontalAlignment.Center;
             easy_style.VerticalAlignment = VerticalAlignment.Center;
-            Console.WriteLine("Будет вставленно строк : " + dt.Rows.Count);
-            Logger.WriteLine("Будет вставленно строк : " + dt.Rows.Count.ToString());
             for (int rownum = 2; rownum < dt.Rows.Count + 2; rownum++)
             {
                 IRow row = worksheet.CreateRow(rownum);

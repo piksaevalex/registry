@@ -41,6 +41,8 @@ namespace registry
                 Console.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
                 Logger.WriteLine("Reading (new): " + swTotal.ElapsedMilliseconds + " ms");
                 swTotal.Reset();
+                Console.WriteLine("Будет вставленно строк : " + dt.Rows.Count);
+                Logger.WriteLine("Будет вставленно строк : " + dt.Rows.Count.ToString());
                 swTotal.Start();
                 ExportData.ExportDT(dt);
                 swTotal.Stop();

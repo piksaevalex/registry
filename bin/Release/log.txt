@@ -91,3 +91,55 @@
 29.08.2018 13:49:27:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\8\5-РД\Реестр РД (6).xls
 29.08.2018 13:49:27:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\9\5-РД\Реестр РД (7).xls
 29.08.2018 13:49:29:    Будет вставленно строк : 736
+29.08.2018 18:31:20:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Реестр РД.xlsx
+29.08.2018 18:31:21:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-03-00-АК_01.docx
+29.08.2018 18:31:24:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-07-01_ТХ_01.docx
+29.08.2018 18:31:26:    Запрашиваемый номер семейства не существует.
+29.08.2018 18:31:26:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\10\5-РД\Реестр РД (8).xls
+29.08.2018 18:31:26:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Реестр РД (9).xls
+29.08.2018 18:31:27:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Новая папка\2017_4201-03-001-ЭС_01.doc
+29.08.2018 18:31:29:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Реестр РД.xls
+29.08.2018 18:31:29:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Новая папка\2015_0034_ГПНО-01-01-АС_01.docx
+29.08.2018 18:31:32:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Новая папка\2015_0034_ГПНО-28-ГП_01.doc
+29.08.2018 18:31:34:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\3\5-РД\Реестр РД (1).xls
+29.08.2018 18:31:34:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\3\5-РД\Новая папка\2015_0034_ГПНО-01-01-АС_01.docx
+29.08.2018 18:31:37:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\4\5-РД\Реестр РД (2).xls
+29.08.2018 18:31:37:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\5\5-РД\Реестр РД (3).xls
+29.08.2018 18:31:37:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\6\5-РД\Реестр РД (4).xls
+29.08.2018 18:31:37:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\6\5-РД\Новая папка\2017_0558-002-АК-01.docx
+29.08.2018 18:31:39:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\7\5-РД\Реестр РД (5).xls
+29.08.2018 18:31:39:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\8\5-РД\Реестр РД (6).xls
+29.08.2018 18:31:39:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\9\5-РД\Реестр РД (7).xls
+29.08.2018 18:31:39:    Reading (new): 19211 ms
+29.08.2018 18:31:40:    Будет вставленно строк : 736
+29.08.2018 18:31:40:    Reading (new): 867 ms
+05.09.2018 18:12:53:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Реестр РД.xlsx
+05.09.2018 18:12:54:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-03-00-АК_01.docx
+05.09.2018 18:12:58:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-07-01_ТХ_01.docx
+05.09.2018 18:13:01:    Запрашиваемый номер семейства не существует.
+05.09.2018 18:13:01:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\10\5-РД\Реестр РД (8).xls
+05.09.2018 18:13:02:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Реестр РД (9).xls
+05.09.2018 18:13:02:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Новая папка\2017_4201-03-001-ЭС_01.doc
+05.09.2018 18:13:04:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Реестр РД.xls
+05.09.2018 18:13:04:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Новая папка\2015_0034_ГПНО-01-01-АС_01.docx
+05.09.2018 18:13:08:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Новая папка\2015_0034_ГПНО-28-ГП_01.doc
+05.09.2018 18:13:10:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\3\5-РД\Реестр РД (1).xls
+05.09.2018 18:13:10:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\3\5-РД\Новая папка\2015_0034_ГПНО-01-01-АС_01.docx
+05.09.2018 18:13:13:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\4\5-РД\Реестр РД (2).xls
+05.09.2018 18:13:14:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\5\5-РД\Реестр РД (3).xls
+05.09.2018 18:13:14:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\6\5-РД\Реестр РД (4).xls
+05.09.2018 18:13:14:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\6\5-РД\Новая папка\2017_0558-002-АК-01.docx
+05.09.2018 18:13:16:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\7\5-РД\Реестр РД (5).xls
+05.09.2018 18:13:16:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\8\5-РД\Реестр РД (6).xls
+05.09.2018 18:13:16:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\9\5-РД\Реестр РД (7).xls
+05.09.2018 18:13:17:    Reading (new): 23755 ms
+05.09.2018 18:13:17:    Будет вставленно строк : 736
+05.09.2018 18:13:19:    Reading (new): 2090 ms
+05.09.2018 18:13:23:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Реестр РД.xlsx
+05.09.2018 18:13:24:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-03-00-АК_01.docx
+05.09.2018 18:13:27:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\1\5-РД\Новая папка\0001-Р-07-01_ТХ_01.docx
+05.09.2018 18:13:29:    Запрашиваемый номер семейства не существует.
+05.09.2018 18:13:29:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\10\5-РД\Реестр РД (8).xls
+05.09.2018 18:13:30:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Реестр РД (9).xls
+05.09.2018 18:13:30:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\11\5-РД\Новая папка\2017_4201-03-001-ЭС_01.doc
+05.09.2018 18:13:32:    C:\Users\Алёша\Desktop\git reestr\registry\bin\Release\Новая папка\Новая папка\2\5-РД\Реестр РД.xls
