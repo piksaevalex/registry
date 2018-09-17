@@ -23,8 +23,9 @@ namespace registry
                 DataTable dt = new DataTable();
                 Model.NewDT(ref dt);
                 string directory = AppDomain.CurrentDomain.BaseDirectory;
-
+                // Обработка реестров excel 
                 MyExcel.DirSearchEx(directory, ref dt);
+                // Обработка реестров word 
                 MyWord.DirSearchWord(directory, ref dt);
 
                 swTotal.Stop();
@@ -34,6 +35,7 @@ namespace registry
                 Console.WriteLine("Будет вставленно строк : " + dt.Rows.Count);
                 Logger.WriteLine("Будет вставленно строк : " + dt.Rows.Count);
                 swTotal.Start();
+                // Заполнение таблицы
                 ExportData.ExportDT(dt);
                 swTotal.Stop();
                 Console.WriteLine("Writing (new): " + swTotal.ElapsedMilliseconds + " ms");
